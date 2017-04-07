@@ -29,27 +29,13 @@ class BusinessTableViewCell: UITableViewCell {
             self._business = businessItem
             
             if (self._business != nil) {
-                if let businessName = _business?.name{
-                    self.businessNameLabel?.text = businessName
-                }
-                if let businessDistance = _business?.distance{
-                    self.businessDistanceLabel?.text = "\(businessDistance)"
-                }
-                if let businessReviewCount = _business?.reviewCount{
-                    self.businessReviewCountLabel?.text = "\(businessReviewCount) Reviews"
-                }
-                if let businessAddress = _business?.address{
-                    self.businessAddressLabel?.text = businessAddress
-                }
-                if let businessCategory = _business?.categories{
-                    self.businessCategoriesLabel?.text = businessCategory
-                }
-                if let businessImageURL = _business?.imageURL{
-                    businessImageView.setImageWith(businessImageURL)
-                }
-                if let businessRatingImageURL = _business?.ratingImageURL{
-                 businessRatingImageView.setImageWith(businessRatingImageURL)
-                }
+                    businessNameLabel?.text = _business?.name
+                    businessDistanceLabel?.text = _business?.distance
+                    businessReviewCountLabel?.text = "\((_business?.reviewCount)!) Reviews"
+                    businessAddressLabel?.text = _business?.address
+                    businessCategoriesLabel?.text = _business?.categories
+                    businessImageView.setImageWith((_business?.imageURL)!)
+                    businessRatingImageView.setImageWith((_business?.ratingImageURL)!)
             }
         }
     }
@@ -59,6 +45,8 @@ class BusinessTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        businessImageView.layer.cornerRadius = 3
+        businessImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

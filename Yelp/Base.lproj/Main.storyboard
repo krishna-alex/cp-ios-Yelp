@@ -34,32 +34,26 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ms" translatesAutoresizingMaskIntoConstraints="NO" id="Ms5-sD-dwy">
-                                                    <rect key="frame" x="8" y="8.5" width="64" height="64"/>
+                                                    <rect key="frame" x="8" y="8" width="64" height="64"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="64" id="7WC-kH-i9S"/>
                                                         <constraint firstAttribute="height" constant="64" id="Jo2-jh-QB7"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BusinessName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqk-01-9gU">
-                                                    <rect key="frame" x="80" y="8.5" width="95.5" height="16"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="miles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ehm-Vm-HtJ">
                                                     <rect key="frame" x="286" y="10" width="26" height="12"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTd-pQ-DSi">
-                                                    <rect key="frame" x="80" y="48" width="232" height="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTd-pQ-DSi">
+                                                    <rect key="frame" x="80" y="48" width="240" height="12"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cq6-DK-Kyf">
-                                                    <rect key="frame" x="80" y="60" width="232" height="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cq6-DK-Kyf">
+                                                    <rect key="frame" x="80" y="60.5" width="52.5" height="12"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -71,12 +65,18 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars_large_4" translatesAutoresizingMaskIntoConstraints="NO" id="os2-rD-cEV">
-                                                    <rect key="frame" x="80" y="31" width="78" height="14"/>
+                                                    <rect key="frame" x="80" y="31.5" width="78" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="0et-NJ-bnC"/>
                                                         <constraint firstAttribute="width" constant="78" id="EDk-np-jee"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BusinessName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqk-01-9gU">
+                                                    <rect key="frame" x="80" y="6.5" width="96" height="19"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="mqk-01-9gU" firstAttribute="leading" secondItem="Ms5-sD-dwy" secondAttribute="trailing" constant="8" id="3nc-2p-2rr"/>
@@ -89,7 +89,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="Ehm-Vm-HtJ" secondAttribute="trailing" constant="8" id="Ira-nX-CYL"/>
                                                 <constraint firstItem="cq6-DK-Kyf" firstAttribute="top" secondItem="eTd-pQ-DSi" secondAttribute="bottom" id="LEv-dh-YBL"/>
                                                 <constraint firstItem="eTd-pQ-DSi" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9ww-Ts-mx2" secondAttribute="trailingMargin" constant="8" id="M93-Uv-cUo"/>
-                                                <constraint firstItem="mqk-01-9gU" firstAttribute="top" secondItem="9ww-Ts-mx2" secondAttribute="top" constant="8" id="PMA-c8-wek"/>
+                                                <constraint firstItem="mqk-01-9gU" firstAttribute="top" secondItem="9ww-Ts-mx2" secondAttribute="top" constant="6" id="PMA-c8-wek"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cq6-DK-Kyf" secondAttribute="trailing" constant="8" id="RaC-17-Hd6"/>
                                                 <constraint firstItem="eTd-pQ-DSi" firstAttribute="leading" secondItem="Ms5-sD-dwy" secondAttribute="trailing" constant="8" id="S40-NT-Z8E"/>
                                                 <constraint firstItem="os2-rD-cEV" firstAttribute="top" secondItem="mqk-01-9gU" secondAttribute="bottom" constant="6.5" id="V30-0y-Os7"/>
@@ -124,7 +124,16 @@
                             <constraint firstItem="hRK-6w-Ru1" firstAttribute="leading" secondItem="XhR-oz-92f" secondAttribute="leading" id="ptO-Q4-61N"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="UAu-R2-4Xj"/>
+                    <navigationItem key="navigationItem" id="UAu-R2-4Xj">
+                        <barButtonItem key="leftBarButtonItem" title="Filter" id="mLE-Kn-ccj">
+                            <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <connections>
+                                <segue destination="I3u-iO-Ohz" kind="popoverPresentation" popoverAnchorBarButtonItem="mLE-Kn-ccj" id="y50-SO-L0v">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="businessTableView" destination="hRK-6w-Ru1" id="jvD-3B-f1J"/>
                     </connections>
@@ -132,6 +141,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2191.875" y="107.74647887323944"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="d1t-b2-DaY">
+            <objects>
+                <viewController id="I3u-iO-Ohz" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="R1W-b0-puo"/>
+                        <viewControllerLayoutGuide type="bottom" id="piN-rh-X8X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6Ab-BA-Btb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2MC-cV-415" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2959" y="105"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kyV-1T-2UX">

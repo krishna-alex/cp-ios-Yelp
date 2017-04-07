@@ -8,9 +8,10 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var businessTableView: UITableView!
+    //@IBOutlet weak var searchBar: UISearchBar!
     
     private var _prototypeCell: BusinessTableViewCell?
     
@@ -25,6 +26,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource {
   //  @IBOutlet weak var searchBar: UISearchBar!
     
     var businesses: [Business] = []
+    var searchActive : Bool = false
   //  var businessesDict: [Business]!
    
     
@@ -34,10 +36,17 @@ class BusinessesViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         businessTableView.dataSource = self
+
         businessTableView.estimatedRowHeight = 200
         businessTableView.rowHeight = UITableViewAutomaticDimension
-
         
+        createSearchBar()
+        
+        //Set Navigation bar color
+        navigationController?.navigationBar.barTintColor = UIColor.init(red: 0.74, green: 0.11, blue: 0.00, alpha: 1.0)
+        navigationController?.navigationBar.barStyle = UIBarStyle.black
+
+
         Business.searchWithTerm(term: "Restaurants", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
           //  print(self.businesses!)
@@ -75,31 +84,27 @@ class BusinessesViewController: UIViewController, UITableViewDataSource {
         
     }
     
+    func createSearchBar() {
+        let searchBar = UISearchBar()
+        searchBar.showsCancelButton = false
+        searchBar.placeholder = "Restaurants"
+        navigationItem.titleView = searchBar
+        searchBar.delegate = self
+    }
+    
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ businessTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       /* if(searchActive) {
-            return filteredBusinesses.count
-        }*/
-        print("Business Count \(self.businesses.count)")
-        return self.businesses.count
+            print("Business Count \(self.businesses.count)")
+            return self.businesses.count
     }
     
     func tableView(_ businessTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: BusinessTableViewCell = businessTableView.dequeueReusableCell(withIdentifier: "BusinessTableViewCell") as! BusinessTableViewCell
-        
         let resultBusiness:Business
-        
-        //If search is active set the filtered movie else the whole list
-      /*  if(searchActive){
-            resultBusiness = self.filteredBusinesses[indexPath.row]
-        } else {
-            resultBusiness = self.businesses[indexPath.row]
-        }
-        */
-        
         
         resultBusiness = self.businesses[indexPath.row]        
         cell.businessItem = resultBusiness
@@ -113,8 +118,40 @@ class BusinessesViewController: UIViewController, UITableViewDataSource {
         return cell
         
     }
-
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchActive = (searchText.characters.count > 0)
+        if (!searchActive) {
+            self.businessTableView.reloadData()
+            return;
+        }
+        
+        //Yelp search
+        print("SearchText")
+        print(searchText.lowercased())
+        Business.searchWithTerm(term: searchText.lowercased() as String, completion: { (businesses: [Business]?, error: Error?) -> Void in
+         self.businesses = businesses!
+         self.businessTableView.reloadData()
+        
+        })
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
