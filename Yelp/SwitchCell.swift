@@ -9,6 +9,9 @@
 import UIKit
 
 class SwitchCell: UITableViewCell {
+    
+    @IBOutlet weak var switchLabel: UILabel!
+    @IBOutlet weak var switchOption: UISwitch!
 
     override func awakeFromNib() {
         super.awakeFromNib()

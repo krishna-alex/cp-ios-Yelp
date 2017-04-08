@@ -10,18 +10,18 @@ import UIKit
 
 class filtersTableTableViewController: UITableViewController {
     
-      var sectionSet = [ /*["caption": "Deals",
+      var sectionSet = [ ["caption": "Deals",
                         "key": "deals",
-                        "type": SettingUIType.Switch],*/
+                        "type": "Switch"],
                        ["caption": "Distance",
                         "key": "distance",
-                        "type": "Dropdown"],
+                        "type": "List"],
                        ["caption": "Sort By",
                         "key": "sort",
-                        "type": "Dropdown"],
+                        "type": "List"],
                        ["caption": "Category",
                         "key": "category",
-                        "type": "Dropdown"]]
+                        "type": "List"]]
     
 
     @IBOutlet var filtersTableView: UITableView!
@@ -29,6 +29,8 @@ class filtersTableTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        filtersTableView.estimatedRowHeight = 30
+        filtersTableView.rowHeight = UITableViewAutomaticDimension
         
         filtersTableView.reloadData()
 
@@ -39,12 +41,15 @@ class filtersTableTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    @IBAction func onCancelButton(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
+    
     @IBAction func onSearchButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+
+    @IBAction func onCancelButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
 
     override func didReceiveMemoryWarning() {
@@ -66,8 +71,8 @@ class filtersTableTableViewController: UITableViewController {
     override func tableView(_ filtersTableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         //return self.section[section]
         print("titleForHeaderInSection")
-        print(self.sectionSet[section]["caption"] as! String? ?? "DefaultTitle")
-        return self.sectionSet[section]["caption"] as! String?
+        print(self.sectionSet[section]["caption"] ?? "DefaultTitle")
+        return self.sectionSet[section]["caption"] 
         
         //return self.settingSections[section]
         
@@ -88,25 +93,64 @@ class filtersTableTableViewController: UITableViewController {
     }
     
     override func tableView(_ filtersTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+        //var cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
+        //var cell =
+        let currSection = sectionSet[indexPath.section]
+        let currSectionType = currSection["type"]! as String
+        print("currSection, currSectionType" , currSection, currSectionType)
         
+        /*if currSectionType == "Switch" {*/
+        let switchCell: SwitchCell = filtersTableView.dequeueReusableCell(withIdentifier: "SwitchCell") as! SwitchCell
+        let ListCell: ListCell = filtersTableView.dequeueReusableCell(withIdentifier: "ListCell") as! ListCell
+
+
         print("section asked for is", indexPath.section, indexPath.row)
         
         var options : [[String:String]]!
         
-        if (indexPath.section == 0) {
-            options = distanceOptions()
-        } else if (indexPath.section == 1) {
-            options = sortOptions()
-        } else if (indexPath.section == 2) {
-            options = categoryOptions()
+        switch(indexPath.section) {
+            case 0:
+                switchCell.switchLabel?.text = "Deals"
+                //switchCell.switchOption.isOn = false
+            case 1:
+                options = distanceOptions()
+                let optionValue = options[indexPath.row]
+                ListCell.listLabel?.text = optionValue["code"]
+            case 2:
+                options = sortOptions()
+                let optionValue = options[indexPath.row]
+                ListCell.listLabel?.text = optionValue["code"]
+            case 3:
+                options = categoryOptions()
+                let optionValue = options[indexPath.row]
+                ListCell.listLabel?.text = optionValue["code"]
+            default:
+                break
         }
         
-        let optionValue = options[indexPath.row]
-        cell.textLabel?.text = optionValue["code"]
-       
-
-        return cell
+       /* if (indexPath.section == 1) {
+            options = distanceOptions()
+            let optionValue = options[indexPath.row]
+            cell.listLabel?.text = optionValue["code"]
+        } else if (indexPath.section == 2) {
+            options = sortOptions()
+            let optionValue = options[indexPath.row]
+            cell.listLabel?.text = optionValue["code"]
+        } else if (indexPath.section == 3) {
+            options = categoryOptions()
+            let optionValue = options[indexPath.row]
+            cell.listLabel?.text = optionValue["code"]
+        } else {
+            cell.switchLabel?.text = "Deals"
+            cell.switchOption.isOn = false
+        }*/
+        
+        if currSectionType == "List" {
+            return ListCell
+        }
+        else {
+            return switchCell
+        }
     }
 
     
