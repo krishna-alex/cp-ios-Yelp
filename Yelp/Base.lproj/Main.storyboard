@@ -164,22 +164,16 @@
                                         </label>
                                         <switch opaque="NO" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xQX-wj-wfl">
                                             <rect key="frame" x="239" y="0.0" width="51" height="31"/>
-                                            <rect key="contentStretch" x="0.0" y="0.0" width="0.20000000000000001" height="0.20000000000000001"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="49" id="9aZ-YJ-16u"/>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="F2O-CZ-CDA"/>
-                                                <constraint firstAttribute="height" constant="31" id="YcC-ie-ZUn"/>
-                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="xQP-zs-gZv"/>
-                                            </constraints>
+                                            <rect key="contentStretch" x="0.0" y="0.0" width="0.10000000000000001" height="0.10000000000000001"/>
                                         </switch>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="xQX-wj-wfl" firstAttribute="top" secondItem="xUY-gH-i6Z" secondAttribute="top" constant="3" id="1Bo-s5-n0d"/>
+                                        <constraint firstItem="xQX-wj-wfl" firstAttribute="top" secondItem="xUY-gH-i6Z" secondAttribute="top" constant="1" id="1Bo-s5-n0d"/>
                                         <constraint firstItem="xQX-wj-wfl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Gzz-Rh-gbS" secondAttribute="trailing" constant="8" id="E6a-mS-K0v"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Gzz-Rh-gbS" secondAttribute="bottom" constant="5" id="W31-QR-5Dm"/>
-                                        <constraint firstAttribute="bottom" secondItem="xQX-wj-wfl" secondAttribute="bottom" id="d6U-uI-27V"/>
-                                        <constraint firstAttribute="trailing" secondItem="xQX-wj-wfl" secondAttribute="trailing" constant="32" id="glX-oj-j1d"/>
-                                        <constraint firstItem="Gzz-Rh-gbS" firstAttribute="top" secondItem="xUY-gH-i6Z" secondAttribute="topMargin" constant="5" id="tbi-Bt-zrw"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Gzz-Rh-gbS" secondAttribute="bottom" constant="1" id="W31-QR-5Dm"/>
+                                        <constraint firstAttribute="bottom" secondItem="xQX-wj-wfl" secondAttribute="bottom" constant="1" id="d6U-uI-27V"/>
+                                        <constraint firstAttribute="trailing" secondItem="xQX-wj-wfl" secondAttribute="trailing" constant="13" id="glX-oj-j1d"/>
+                                        <constraint firstItem="Gzz-Rh-gbS" firstAttribute="top" secondItem="xUY-gH-i6Z" secondAttribute="topMargin" constant="1" id="tbi-Bt-zrw"/>
                                         <constraint firstItem="Gzz-Rh-gbS" firstAttribute="leading" secondItem="xUY-gH-i6Z" secondAttribute="leadingMargin" constant="11" id="uNt-S9-rcf"/>
                                     </constraints>
                                 </tableViewCellContentView>
