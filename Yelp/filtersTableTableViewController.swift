@@ -101,6 +101,15 @@ class filtersTableTableViewController: UITableViewController {
 
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Uncheck everything in section 'section'
+        for _row in 0 ..< tableView.numberOfRows(inSection: indexPath.section) {
+            tableView.cellForRow(at: IndexPath(row: _row, section: indexPath.section))?.accessoryType = .none;
+        }
+
+        tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark;
+    }
+    
     override func tableView(_ filtersTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //var cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
         //var cell =
