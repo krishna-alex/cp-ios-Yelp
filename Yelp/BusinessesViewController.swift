@@ -30,8 +30,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
   //  var businessesDict: [Business]!
    
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
