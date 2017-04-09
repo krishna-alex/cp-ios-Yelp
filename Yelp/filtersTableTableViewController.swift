@@ -30,8 +30,13 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
 
     @IBOutlet var filtersTableView: UITableView!
     var categories: [[String:String]]!
+    var distanceList: [[String:String]]!
+    var sortList: [[String:String]]!
     weak var delegate: FiltersTableViewControllerDelegate?
-    var switchStates = [Int:Bool]()
+    var categoryStates = [Int:Bool]()
+    var dealState = Bool()
+    var distancePreference = String()
+    var sortPreference = String()
     
     
     override func viewDidLoad() {
@@ -40,6 +45,8 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
         filtersTableView.estimatedRowHeight = 30
         filtersTableView.rowHeight = UITableViewAutomaticDimension
         categories = categoryOptions()
+        distanceList = distanceOptions()
+        sortList = sortOptions()
         
         filtersTableView.reloadData()
 
@@ -55,8 +62,8 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
         dismiss(animated: true, completion: nil)
         var filters = [String:AnyObject]()
         var selectedCategories = [String]()
-        print("switchStates" , switchStates)
-        for(row, isSelected) in switchStates {
+        print("categoryStates" , categoryStates)
+        for(row, isSelected) in categoryStates {
             if isSelected {
                 selectedCategories.append(categories[row]["code"]!)
             }
@@ -65,6 +72,10 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
         if selectedCategories.count > 0 {
             filters["categories"] = selectedCategories as AnyObject?
         }
+        
+        filters["deals"] = dealState as AnyObject?
+        filters["distancePreference"] = distancePreference as AnyObject?
+        filters["sortPreference"] = sortPreference as AnyObject?
         
         delegate?.filtersTableViewController?(filtersTableViewController: self, didUpdateFilters: filters)
     }
@@ -124,6 +135,7 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellType = sectionSet[indexPath.section]["type"]! as String
+        let currSection = sectionSet[indexPath.section]
         if cellType == "List" {
             // Uncheck everything in section 'section'
             for _row in 0 ..< tableView.numberOfRows(inSection: indexPath.section) {
@@ -131,6 +143,15 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
             }
             // Check the selection
             tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark;
+            print("tableView.cellForRow(at: indexPath)", tableView.cellForRow(at: indexPath))
+           if currSection["key"] == "distance" {
+                distancePreference = distanceList[indexPath.row]["code"]!
+                print("distancePreference", distancePreference)
+            }
+            if currSection["key"] == "sort" {
+                sortPreference = sortList[indexPath.row]["code"]!
+                print("sortPreference", sortPreference)
+            }
         }
         
     }
@@ -158,15 +179,15 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
             case 1:
                 options = distanceOptions()
                 let optionValue = options[indexPath.row]
-                ListCell.listLabel?.text = optionValue["code"]
+                ListCell.listLabel?.text = optionValue["name"]
             case 2:
                 options = sortOptions()
                 let optionValue = options[indexPath.row]
-                ListCell.listLabel?.text = optionValue["code"]
+                ListCell.listLabel?.text = optionValue["name"]
             case 3:
                 options = categoryOptions()
                 let optionValue = options[indexPath.row]
-                switchCell.switchLabel?.text = optionValue["code"]
+                switchCell.switchLabel?.text = optionValue["name"]
             default:
                 break
         }
@@ -194,14 +215,21 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
         }
         else {
             switchCell.delegate = self
-            switchCell.switchOption.isOn = switchStates[indexPath.row] ?? false
+            switchCell.switchOption.isOn = categoryStates[indexPath.row] ?? false
             return switchCell
         }
     }
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = filtersTableView.indexPath(for: switchCell)
-        switchStates[indexPath!.row] = value
-        print("in switchcell delegate", switchStates[indexPath!.row])
+        let currSection = sectionSet[(indexPath?.section)!]
+        if currSection["key"] == "category" {
+            categoryStates[indexPath!.row] = value
+            print("in switchcell delegate", categoryStates[indexPath!.row])
+            print("categoryStates", categoryStates)
+        } else if currSection["key"] == "deals" {
+            dealState = value
+            print("dealState", dealState)
+        }
         
     }
 
@@ -330,19 +358,19 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
     
     
     func distanceOptions() -> [[String:String]] {
-    return [["name" : "", "code" : "Auto"],
-            ["name" : "482", "code" : "0.3 miles"],
-            ["name" : "1609", "code" : "1 mile"],
-            ["name" : "8046", "code" : "5 miles"],
-            ["name" : "32186", "code" : "20 miles"]]
+    return [["name" : "Auto", "code" : "Auto"],
+            ["name" : "0.3 miles", "code" : "482"],
+            ["name" : "1 mile", "code" : "1609"],
+            ["name" : "5 miles", "code" : "8046"],
+            ["name" : "20 miles", "code" : "32186"]]
     
     }
 
     
     func sortOptions() -> [[String:String]] {
-        return [["name" : "0", "code" : "Best matched (default)"],
-                ["name" : "1", "code" : "Distance"],
-                ["name" : "2", "code" : "Highest rated"]]
+        return [["name" : "Best matched (default)", "code" : "0"],
+                ["name" : "Distance", "code" : "1"],
+                ["name" : "Highest rated", "code" : "2"]]
     
     }
 
