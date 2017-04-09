@@ -11,8 +11,6 @@ import UIKit
 class BusinessesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate, FiltersTableViewControllerDelegate {
     
     @IBOutlet weak var businessTableView: UITableView!
-    //@IBOutlet weak var searchBar: UISearchBar!
-    
     private var _prototypeCell: BusinessTableViewCell?
     
     private var prototypeCell: BusinessTableViewCell {
@@ -22,19 +20,16 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         return self._prototypeCell!
     }
     
-
-  //  @IBOutlet weak var searchBar: UISearchBar!
-    
     var businesses: [Business] = []
     var searchActive : Bool = false
-  //  var businessesDict: [Business]!
    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         businessTableView.dataSource = self
-
+        
+        //Automatically set the cell height
         businessTableView.estimatedRowHeight = 200
         businessTableView.rowHeight = UITableViewAutomaticDimension
         
@@ -46,40 +41,11 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
 
 
         Business.searchWithTerm(term: "Restaurants", completion: { (businesses: [Business]?, error: Error?) -> Void in
-            
-          //  print(self.businesses!)
             self.businesses = businesses!
             self.businessTableView.reloadData()
-            /* if let resultBusiness = businesses {
-                print(resultBusiness)
-                for business in resultBusiness {
-                    print(business.ratingImageURL)
-                    print(business.imageURL)
-                    print(business.name!)
-                    print(business.address!)
-                    print(business.reviewCount)
-                    print(business.categories)
-                    print(business.distance)
-                    
-                }
-               print(resultBusiness[0].address! as String)
-                print(resultBusiness[0].name! as String)
-            }*/
             
             }
         )
-        
-        /* Example of Yelp search with more search options specified
-         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-         self.businesses = businesses
-         
-         for business in businesses {
-         print(business.name!)
-         print(business.address!)
-         }
-         }
-         */
-        
     }
     
     func createSearchBar() {
@@ -96,7 +62,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
     }
     
     func tableView(_ businessTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            print("Business Count \(self.businesses.count)")
             return self.businesses.count
     }
     
@@ -106,7 +71,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         
         resultBusiness = self.businesses[indexPath.row]        
         cell.businessItem = resultBusiness
-        print(resultBusiness)
         
         //Customize the highlight and selection effect of the cell
        /* let view = UIView()
@@ -141,8 +105,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         }
         
         //Yelp search
-        print("SearchText")
-        print(searchText.lowercased())
         Business.searchWithTerm(term: searchText.lowercased() as String, completion: { (businesses: [Business]?, error: Error?) -> Void in
          self.businesses = businesses!
          self.businessTableView.reloadData()
@@ -156,19 +118,11 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         // Dispose of any resources that can be recreated.
     }
     
-    /*
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-        
-        let navigationController = segue.destination as! UINavigationController
-        let filtersViewController = navigationController.topViewController as! filtersTableTableViewController
-        filtersViewController.delegate = self
-        
-     } */
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navigationController = segue.destination as! UINavigationController
         let filtersViewController = navigationController.topViewController as! filtersTableTableViewController
@@ -181,8 +135,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         let deal = filters["deals"] as! Bool?
         let distance = Int(filters["distancePreference"] as! String)
         let sortPref = Int(filters["sortPreference"] as! String)
-        print("sort", sortPref)
-        //print("categories in delegate", categories)
         Business.searchWithTerm(term: "Restaurants", sort: sortPref, categories: categories, deals: deal, radius: distance, completion: { (businesses: [Business]?, error: Error? ) -> Void in
             self.businesses = businesses!
             self.businessTableView.reloadData()

@@ -8,14 +8,10 @@
 
 import UIKit
 
-@objc protocol ListCellDelegate {
-    @objc optional func listCell(listCell: ListCell, selectedItem value: String)
-}
 
 class ListCell: UITableViewCell {
 
     @IBOutlet weak var listLabel: UILabel!
-    weak var delegate: ListCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()

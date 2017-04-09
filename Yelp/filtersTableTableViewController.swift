@@ -50,9 +50,6 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
         
         filtersTableView.reloadData()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -95,7 +92,6 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
 
     override func numberOfSections(in filtersTableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        //return self.section.count
         print("numberOfSections")
         print(self.sectionSet.count)
         return self.sectionSet.count
@@ -103,13 +99,9 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
     
     
     override func tableView(_ filtersTableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        //return self.section[section]
         print("titleForHeaderInSection")
         print(self.sectionSet[section]["caption"] ?? "DefaultTitle")
-        return self.sectionSet[section]["caption"] 
-        
-        //return self.settingSections[section]
-        
+        return self.sectionSet[section]["caption"]
     }
     
     override func tableView(_ filtersTableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -129,8 +121,6 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
         print(self.countDropdownOptionsBySettingKey(key: "\(key)"))
         
         return self.countDropdownOptionsBySettingKey(key: key)
-        //return 1
-
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -143,39 +133,27 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
             }
             // Check the selection
             tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark;
-            print("tableView.cellForRow(at: indexPath)", tableView.cellForRow(at: indexPath))
            if currSection["key"] == "distance" {
                 distancePreference = distanceList[indexPath.row]["code"]!
-                print("distancePreference", distancePreference)
             }
             if currSection["key"] == "sort" {
                 sortPreference = sortList[indexPath.row]["code"]!
-                print("sortPreference", sortPreference)
             }
         }
         
     }
     
     override func tableView(_ filtersTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //var cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
-        //var cell =
         let currSection = sectionSet[indexPath.section]
         let currSectionType = currSection["type"]! as String
-        print("currSection, currSectionType" , currSection, currSectionType)
         
-        /*if currSectionType == "Switch" {*/
         let switchCell: SwitchCell = filtersTableView.dequeueReusableCell(withIdentifier: "SwitchCell") as! SwitchCell
         let ListCell: ListCell = filtersTableView.dequeueReusableCell(withIdentifier: "ListCell") as! ListCell
-
-
-        print("section asked for is", indexPath.section, indexPath.row)
-        
         var options : [[String:String]]!
         
         switch(indexPath.section) {
             case 0:
                 switchCell.switchLabel?.text = "Deals"
-                //switchCell.switchOption.isOn = false
             case 1:
                 options = distanceOptions()
                 let optionValue = options[indexPath.row]
@@ -192,25 +170,7 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
                 break
         }
         
-       /* if (indexPath.section == 1) {
-            options = distanceOptions()
-            let optionValue = options[indexPath.row]
-            cell.listLabel?.text = optionValue["code"]
-        } else if (indexPath.section == 2) {
-            options = sortOptions()
-            let optionValue = options[indexPath.row]
-            cell.listLabel?.text = optionValue["code"]
-        } else if (indexPath.section == 3) {
-            options = categoryOptions()
-            let optionValue = options[indexPath.row]
-            cell.listLabel?.text = optionValue["code"]
-        } else {
-            cell.switchLabel?.text = "Deals"
-            cell.switchOption.isOn = false
-        }*/
-        
         if currSectionType == "List" {
-            //ListCell.delegate = self
             return ListCell
         }
         else {
@@ -219,16 +179,14 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
             return switchCell
         }
     }
+    
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = filtersTableView.indexPath(for: switchCell)
         let currSection = sectionSet[(indexPath?.section)!]
         if currSection["key"] == "category" {
             categoryStates[indexPath!.row] = value
-            print("in switchcell delegate", categoryStates[indexPath!.row])
-            print("categoryStates", categoryStates)
         } else if currSection["key"] == "deals" {
             dealState = value
-            print("dealState", dealState)
         }
         
     }
@@ -289,41 +247,7 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
         
     } */
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+ 
     /*
     // MARK: - Navigation
 
