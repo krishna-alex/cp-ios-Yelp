@@ -298,9 +298,24 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
     
     }
 
-    
-    
     func categoryOptions() -> [[String:String]] {
+        
+        return [["name" : "Afghan", "code": "afghani"],
+                ["name" : "African", "code": "african"],
+                ["name" : "American, New", "code": "newamerican"],
+                ["name" : "Asian Fusion", "code": "asianfusion"],
+                ["name" : "Basque", "code": "basque"],
+                ["name" : "Cafes", "code": "cafes"],
+                ["name" : "Indian", "code": "indpak"],
+                ["name" : "Italian", "code": "italian"],
+                ["name" : "Thai", "code": "thai"],
+                ["name" : "Vietnamese", "code": "vietnamese"]]
+    }
+    
+
+
+
+    /*func categoryOptions() -> [[String:String]] {
     
                 return [["name" : "Afghan", "code": "afghani"],
                       ["name" : "African", "code": "african"],
@@ -472,6 +487,6 @@ class filtersTableTableViewController: UITableViewController, SwitchCellDelegate
                       ["name" : "Wraps", "code": "wraps"],
                       ["name" : "Yugoslav", "code": "yugoslav"]]
         
-    }
+    }*/
 
 }
