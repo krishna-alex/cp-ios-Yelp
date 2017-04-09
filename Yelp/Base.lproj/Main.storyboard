@@ -40,7 +40,7 @@
                                                         <constraint firstAttribute="height" constant="64" id="Jo2-jh-QB7"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="miles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ehm-Vm-HtJ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="miles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ehm-Vm-HtJ">
                                                     <rect key="frame" x="286" y="10.5" width="26" height="12"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <nil key="textColor"/>
@@ -71,7 +71,7 @@
                                                         <constraint firstAttribute="width" constant="78" id="EDk-np-jee"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BusinessName" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqk-01-9gU">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="BusinessName" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqk-01-9gU">
                                                     <rect key="frame" x="80" y="6.5" width="96" height="19"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                     <nil key="textColor"/>
@@ -100,7 +100,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="cq6-DK-Kyf" secondAttribute="bottom" constant="8" id="qiG-gV-oJJ"/>
                                                 <constraint firstItem="os2-rD-cEV" firstAttribute="leading" secondItem="Ms5-sD-dwy" secondAttribute="trailing" constant="8" id="r01-ji-Zeb"/>
                                                 <constraint firstItem="Ehm-Vm-HtJ" firstAttribute="centerY" secondItem="mqk-01-9gU" secondAttribute="centerY" id="rwd-h3-a50"/>
-                                                <constraint firstItem="Ehm-Vm-HtJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mqk-01-9gU" secondAttribute="trailing" constant="41" id="we2-h4-zii"/>
+                                                <constraint firstItem="Ehm-Vm-HtJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mqk-01-9gU" secondAttribute="trailing" constant="6" id="we2-h4-zii"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
