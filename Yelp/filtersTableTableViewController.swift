@@ -8,7 +8,11 @@
 
 import UIKit
 
-class filtersTableTableViewController: UITableViewController {
+@objc protocol FiltersTableViewControllerDelegate {
+    @objc optional func filtersTableViewController(filtersTableViewController: filtersTableTableViewController, didUpdateFilters filters: [String: AnyObject])
+}
+
+class filtersTableTableViewController: UITableViewController, SwitchCellDelegate {
     
       var sectionSet = [ ["caption": "Deals Offered",
                         "key": "deals",
@@ -25,12 +29,17 @@ class filtersTableTableViewController: UITableViewController {
     
 
     @IBOutlet var filtersTableView: UITableView!
+    var categories: [[String:String]]!
+    weak var delegate: FiltersTableViewControllerDelegate?
+    var switchStates = [Int:Bool]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         filtersTableView.dataSource = self
         filtersTableView.estimatedRowHeight = 30
         filtersTableView.rowHeight = UITableViewAutomaticDimension
+        categories = categoryOptions()
         
         filtersTableView.reloadData()
 
@@ -44,6 +53,20 @@ class filtersTableTableViewController: UITableViewController {
     
     @IBAction func onSearchButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+        var filters = [String:AnyObject]()
+        var selectedCategories = [String]()
+        print("switchStates" , switchStates)
+        for(row, isSelected) in switchStates {
+            if isSelected {
+                selectedCategories.append(categories[row]["code"]!)
+            }
+        }
+        
+        if selectedCategories.count > 0 {
+            filters["categories"] = selectedCategories as AnyObject?
+        }
+        
+        delegate?.filtersTableViewController?(filtersTableViewController: self, didUpdateFilters: filters)
     }
 
     @IBAction func onCancelButton(_ sender: Any) {
@@ -166,11 +189,20 @@ class filtersTableTableViewController: UITableViewController {
         }*/
         
         if currSectionType == "List" {
+            //ListCell.delegate = self
             return ListCell
         }
         else {
+            switchCell.delegate = self
+            switchCell.switchOption.isOn = switchStates[indexPath.row] ?? false
             return switchCell
         }
+    }
+    func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
+        let indexPath = filtersTableView.indexPath(for: switchCell)
+        switchStates[indexPath!.row] = value
+        print("in switchcell delegate", switchStates[indexPath!.row])
+        
     }
 
     

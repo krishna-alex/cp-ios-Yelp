@@ -179,6 +179,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="switchLabel" destination="Gzz-Rh-gbS" id="bUE-hz-3t7"/>
+                                    <outlet property="switchOption" destination="xQX-wj-wfl" id="fq6-hd-DGd"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListCell" rowHeight="34" id="giP-YW-VVE" customClass="ListCell" customModule="Yelp" customModuleProvider="target">

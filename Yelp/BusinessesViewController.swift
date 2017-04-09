@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate, FiltersTableViewControllerDelegate {
     
     @IBOutlet weak var businessTableView: UITableView!
     //@IBOutlet weak var searchBar: UISearchBar!
@@ -160,10 +160,29 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
-     }
-     */
+        
+        let navigationController = segue.destination as! UINavigationController
+        let filtersViewController = navigationController.topViewController as! filtersTableTableViewController
+        filtersViewController.delegate = self
+        
+     } */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let navigationController = segue.destination as! UINavigationController
+        let filtersViewController = navigationController.topViewController as! filtersTableTableViewController
+        filtersViewController.delegate = self
+    }
+    
+    func filtersTableViewController(filtersTableViewController: filtersTableTableViewController, didUpdateFilters filters: [String : AnyObject]) {
+        
+        let categories = filters["categories"] as! [String]?
+        print("categories in delegate", categories)
+        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil, completion: { (businesses: [Business]?, error: Error? ) -> Void in
+            self.businesses = businesses!
+            self.businessTableView.reloadData()
+        })
+    }
     
 }
