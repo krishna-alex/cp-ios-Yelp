@@ -29,13 +29,13 @@ class BusinessTableViewCell: UITableViewCell {
             self._business = businessItem
             
             if (self._business != nil) {
-                    businessNameLabel?.text = _business?.name
-                    businessDistanceLabel?.text = _business?.distance
-                    businessReviewCountLabel?.text = "\((_business?.reviewCount)!) Reviews"
-                    businessAddressLabel?.text = _business?.address
-                    businessCategoriesLabel?.text = _business?.categories
-                    businessImageView.setImageWith((_business?.imageURL)!)
-                    businessRatingImageView.setImageWith((_business?.ratingImageURL)!)
+                businessNameLabel?.text = _business?.name
+                businessDistanceLabel?.text = _business?.distance
+                businessReviewCountLabel?.text = "\((_business?.reviewCount)!) Reviews"
+                businessAddressLabel?.text = _business?.address
+                businessCategoriesLabel?.text = _business?.categories
+                businessImageView.setImageWith((_business?.imageURL ?? URL(string: ""))!)
+                businessRatingImageView.setImageWith((_business?.ratingImageURL)!)
             }
         }
     }

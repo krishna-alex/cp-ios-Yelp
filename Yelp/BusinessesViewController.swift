@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate, FiltersTableViewControllerDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, FiltersTableViewControllerDelegate {
     
     @IBOutlet weak var businessTableView: UITableView!
     private var _prototypeCell: BusinessTableViewCell?
@@ -21,13 +21,19 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
     }
     
     var businesses: [Business] = []
+    var paginationTotal: Int = 0
+    let paginationThreshold = 5 // items before next page is fetched.
     var searchActive : Bool = false
+    var filters: [String: AnyObject] = [:]
+    var isFetching: Bool = false
+    var searchText: String = ""
    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         businessTableView.dataSource = self
+        businessTableView.delegate = self
         
         //Automatically set the cell height
         businessTableView.estimatedRowHeight = 200
@@ -40,12 +46,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         navigationController?.navigationBar.barStyle = UIBarStyle.black
 
 
-        Business.searchWithTerm(term: "Restaurants", completion: { (businesses: [Business]?, error: Error?) -> Void in
-            self.businesses = businesses!
-            self.businessTableView.reloadData()
-            
-            }
-        )
+        fetchNextPage(offset: 0)
     }
     
     func createSearchBar() {
@@ -99,17 +100,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchActive = (searchText.characters.count > 0)
-        if (!searchActive) {
-            self.businessTableView.reloadData()
-            return;
-        }
-        
-        //Yelp search
-        Business.searchWithTerm(term: searchText.lowercased() as String, completion: { (businesses: [Business]?, error: Error?) -> Void in
-         self.businesses = businesses!
-         self.businessTableView.reloadData()
-        
-        })
+        self.searchText = searchText
+        self.fetchNextPage(offset: 0)
+        self.businessTableView.reloadData()
     }
 
     
@@ -118,11 +111,85 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
         // Dispose of any resources that can be recreated.
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print("remaining rows", indexPath.row, self.businesses.count, self.paginationTotal)
+        if (self.businesses.count - indexPath.row < paginationThreshold && self.businesses.count < self.paginationTotal) {
+            self.fetchNextPage(offset: self.businesses.count)
+        }
+    }
+    
+    func fetchNextPage(offset: Int) {
+        if (isFetching) {
+            return;
+        }
+        
+        if (offset == 0) {
+            self.businesses.removeAll()
+            self.businessTableView.reloadData()
+        }
+        
+        if (self.searchActive) {
+            self.isFetching = true
+            Business.searchWithTerm(term: self.searchText.lowercased() as String, offset: self.businesses.count, completion: { (total: Int?, businesses: [Business]?, error: Error?) -> Void in
+                
+                self.isFetching = false
+                self.paginationTotal = total!
+                
+                if (offset == 0) {
+                    self.businesses = businesses!
+                }
+                else {
+                    self.businesses.append(contentsOf: businesses!)
+                }
+                
+                self.businessTableView.reloadData()
+            })
+        }
+        else if (filters.count > 0) {
+            print("Fetching ", offset, "for a filtered view", filters)
+            let categories = filters["categories"] as! [String]?
+            let deal = filters["deals"] as! Bool?
+            let distance = Int(filters["distancePreference"] as! String)
+            let sortPref = Int(filters["sortPreference"] as! String)
+            isFetching = true
+            Business.searchWithTerm(term: "Restaurants", sort: sortPref, categories: categories, deals: deal, radius: distance, offset: self.businesses.count, completion: {(total: Int?, businesses: [Business]?, error: Error? ) -> Void in
+                
+                self.isFetching = false
+                self.paginationTotal = total!
+                
+                if (offset == 0) {
+                    self.businesses = businesses!
+                }
+                else {
+                    self.businesses.append(contentsOf: businesses!)
+                }
+                self.businessTableView.reloadData()
+            })
+        }
+        else {
+            print("Fetching ", offset, "for plain view")
+            isFetching = true
+            Business.searchWithTerm(term: "Restaurants", offset: offset, completion: { (total: Int?, businesses: [Business]?, error: Error?) -> Void in
+                    self.isFetching = false
+                    self.paginationTotal = total!
+                
+                    if (offset == 0) {
+                        self.businesses = businesses!
+                    }
+                    else {
+                        self.businesses.append(contentsOf: businesses!)
+                    }
+                
+                    self.businessTableView.reloadData()
+                }
+            )
+        }
+    }
     
      // MARK: - Navigation
-     
+    
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navigationController = segue.destination as! UINavigationController
         let filtersViewController = navigationController.topViewController as! filtersTableTableViewController
@@ -131,14 +198,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UISearc
     
     func filtersTableViewController(filtersTableViewController: filtersTableTableViewController, didUpdateFilters filters: [String : AnyObject]) {
         
-        let categories = filters["categories"] as! [String]?
-        let deal = filters["deals"] as! Bool?
-        let distance = Int(filters["distancePreference"] as! String)
-        let sortPref = Int(filters["sortPreference"] as! String)
-        Business.searchWithTerm(term: "Restaurants", sort: sortPref, categories: categories, deals: deal, radius: distance, completion: { (businesses: [Business]?, error: Error? ) -> Void in
-            self.businesses = businesses!
-            self.businessTableView.reloadData()
-        })
+        self.filters = filters
+        fetchNextPage(offset: 0)
         
     }
     
