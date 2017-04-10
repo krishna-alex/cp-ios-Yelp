@@ -22,7 +22,7 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [ ] Search results page
-   - [ ] Infinite scroll for restaurant results.
+   - [X] Infinite scroll for restaurant results.
    - [ ] Implement map view of restaurant results.
 - [ ] Filter page
    - [ ] Implement a custom switch instead of the default UISwitch.
@@ -31,12 +31,16 @@ The following **optional** features are implemented:
 - [ ] Implement the restaurant detail page.
 
 The following **additional** features are implemented:
+- [X] Infinite scroll.
+    [X] Infinite scroll for search results.
+    [X] Infinte scroll for the filtered results.
+
 
 - [ ] List anything else that you can get done to improve the app functionality!
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. Infinite scroll 
+1. Implement map view of restaurant results
 2. Distance filter should expand as in the real Yelp app
 
 ## Video Walkthrough
