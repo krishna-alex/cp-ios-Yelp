@@ -32,8 +32,8 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 - [X] Infinite scroll.
-    [X] Infinite scroll for search results.
-    [X] Infinte scroll for the filtered results.
+   - [X] Infinite scroll for search results.
+   - [X] Infinte scroll for the filtered results.
 
 
 - [ ] List anything else that you can get done to improve the app functionality!
